@@ -1,2 +1,8 @@
-ignoredBuiltDependencies:
+packages:
+  - "."
+
+allowBuilds:
+  unrs-resolver: true
+
+onlyBuiltDependencies:
   - unrs-resolver
