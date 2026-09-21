@@ -598,29 +598,34 @@ export function ProjectShowcase() {
 <div className="grid grid-cols-12 gap-3 lg:col-span-9">
   {group.images.length > 0 ? (
     group.images.map((image, imageIndex) => {
-      const isFiveImages = group.images.length === 5;
-      const isFourImages = group.images.length === 4;
+      const imageCount = group.images.length;
 
-      let imageClass = "";
+      let imageClassName = "";
 
-      if (isFiveImages) {
+      if (imageCount === 4) {
+        // 图片1：第一行右侧，占 1/2
         if (imageIndex === 0) {
-          imageClass = "col-span-4";
-        } else if (imageIndex === 1) {
-          imageClass = "col-span-4";
-        } else if (imageIndex === 2) {
-          imageClass = "col-span-6";
+          imageClassName = "col-span-6";
         } else {
-          imageClass = "col-span-3";
+          // 图片2、3、4：第二行三等分
+          imageClassName = "col-span-4";
         }
-      } else if (isFourImages) {
-        if (imageIndex === 0) {
-          imageClass = "col-span-6";
-        } else {
-          imageClass = "col-span-4";
+      } else if (imageCount === 5) {
+        // 图片1、2：第一行各占 1/3
+        if (imageIndex === 0 || imageIndex === 1) {
+          imageClassName = "col-span-4";
+        }
+        // 图片3：第二行占 1/2
+        else if (imageIndex === 2) {
+          imageClassName = "col-span-6";
+        }
+        // 图片4、5：第二行各占 1/4
+        else {
+          imageClassName = "col-span-3";
         }
       } else {
-        imageClass = "col-span-6";
+        // 其他数量保持普通排列
+        imageClassName = "col-span-6";
       }
 
       return (
@@ -629,15 +634,14 @@ export function ProjectShowcase() {
           src={image.src}
           alt={image.alt}
           caption={image.caption}
-          className={`w-full h-auto max-h-[220px] object-contain ${imageClass}`}
+          className={imageClassName}
+          imageClassName="object-contain"
           sizes={
-            isFiveImages
-              ? imageIndex < 2
-                ? "(max-width: 768px) 50vw, 28vw"
-                : imageIndex === 2
-                  ? "(max-width: 768px) 75vw, 40vw"
-                  : "(max-width: 768px) 40vw, 20vw"
-              : "(max-width: 768px) 50vw, 25vw"
+            imageCount === 5
+              ? imageIndex === 2
+                ? "(max-width: 768px) 75vw, 40vw"
+                : "(max-width: 768px) 50vw, 25vw"
+              : "(max-width: 768px) 50vw, 30vw"
           }
           path={[
             "otherWorkGroups",
