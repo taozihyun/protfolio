@@ -182,7 +182,7 @@ export const experiences: Experience[] = [
       {
         src: "/images/hero-sneaker.jpg",
         alt: "鞋类客户定制项目产品",
-        caption: "鞋类客户项目 / 产品适配",
+        caption: "法国知名骑行鞋品牌（未上市）",
       },
       {
         src: "/images/easytech-booth.jpg",
@@ -192,27 +192,27 @@ export const experiences: Experience[] = [
       {
         src: "/images/cord-system.jpg",
         alt: "旋钮系带系统组成细节",
-        caption: "旋钮系带系统 / 产品结构",
+        caption: "展会现场/钥匙扣周边",
       },
       {
         src: "/images/anta-vitroedge.jpg",
         alt: "品牌定制产品展示",
-        caption: "品牌定制 / 产品展示",
+        caption: "安踏最终样1",
       },
       {
         src: "/images/experience-product-table-2.jpg",
         alt: "产品细节与结构展示",
-        caption: "产品细节 / 结构展示",
+        caption: "安踏最终样2",
       },
       {
         src: "/images/experience-sneaker-detail-2.jpg",
         alt: "鞋类产品旋钮细节",
-        caption: "鞋类产品 / 旋钮细节",
+        caption: "安踏最终样3",
       },
       {
         src: "/images/experience-sample-letter.png",
         alt: "客户项目资料页面",
-        caption: "客户项目 / 资料页面",
+        caption: "探迹者定制",
       },
     ],
     groups: [
@@ -361,7 +361,7 @@ export const projects: Project[] = [
     approach: [
       "拆分客户关于材质、结构和适配性的核心需求。",
       "协调技术经理线上或现场解决适配问题。",
-      "筛选供应商并推进多轮打样测试。",
+      "推进多轮打样测试。",
       "根据打样反馈推动报价、选品与开模预算确认。",
       "完成商务谈判，并在交付计划中预留缓冲空间。",
     ],
@@ -420,7 +420,7 @@ export const projects: Project[] = [
     ],
     resultSummary: ["建立达人资源池", "内容共创 SOP", "提升海外曝光"],
     challenge:
-      "借助海外社媒平台扩大品牌海外知名度，探索达人营销路径，为海外渠道拓展提供流量与信任背书。",
+      "借助海外社媒平台扩大品牌与客户品牌海外知名度，探索达人营销路径，为海外渠道拓展提供流量与信任背书。",
     insight: "",
     approach: [
       "自主挖掘并联络海外达人。",
@@ -542,33 +542,33 @@ export const otherWorkGroups: OtherWorkGroup[] = [
   },
   {
     title: "产品内容与展示",
-    caption: "通过产品细节、应用场景和内容表达建立客户理解。",
+    caption: "通过产品细节、应用场景、合作品牌和内容表达建立客户理解。",
     images: [
       {
         src: "/images/product-table.jpg",
         alt: "产品展示桌面",
-        caption: "产品陈列",
+        caption: "安踏最终样",
       },
       {
         src: "/images/product-display.jpg",
         alt: "产品细节展示",
-        caption: "产品细节",
+        caption: "产品展示",
       },
       {
         src: "/images/breathable-pouch.jpg",
         alt: "产品材质与包装说明",
-        caption: "材质与包装说明",
+        caption: "线上社媒素材（本人与客户申请原素材进行剪辑制作发布）",
       },
       {
         src: "/images/tightening-system.jpg",
         alt: "旋钮系紧产品说明",
-        caption: "产品功能说明",
+        caption: "现场演示产品功能说明",
       },
     ],
   },
   {
     title: "海外社媒内容",
-    caption: "围绕达人内容、产品合作和社媒内容沉淀持续展示。",
+    caption: "围绕达人内容、产品宣传介绍和社媒内容沉淀持续展示。",
     images: [
       {
         src: "/images/youtube-creator.jpg",
@@ -578,12 +578,12 @@ export const otherWorkGroups: OtherWorkGroup[] = [
       {
         src: "/images/evr-social.jpg",
         alt: "EVR 骑行包社媒内容",
-        caption: "EVR 骑行包合作",
+        caption: "内容由我个人设计排版",
       },
       {
         src: "/images/evr-bike-bag.jpg",
         alt: "EVR 骑行包产品页面",
-        caption: "产品内容沉淀",
+        caption: "社媒内容",
       },
       {
         src: "/images/social-product-notes.jpg",
@@ -593,7 +593,7 @@ export const otherWorkGroups: OtherWorkGroup[] = [
       {
         src: "/images/social-santic-collab.jpg",
         alt: "Santic 与 ETIE 联名骑行鞋内容",
-        caption: "Santic × ETIE / 骑行鞋内容",
+        caption: "社媒运营获客作品",
       },
     ],
   },
