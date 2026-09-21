@@ -143,15 +143,16 @@ export function ZoomableImage({
   alt,
   caption,
   className = "",
-  imageClassName = "object-cover",
+  imageClassName = "object-contain",
   sizes = "(max-width: 768px) 100vw, 50vw",
   priority = false,
   path,
   captionPath,
   visualId,
-  defaultObjectFit = "cover",
+  defaultObjectFit = "contain",
 }: ZoomableImageProps) {
   const context = useContext(LightboxContext);
+
   const {
     isEditing,
     data,
@@ -161,18 +162,25 @@ export function ZoomableImage({
     resolveImage,
     updateVisualStyle,
   } = useResumeData();
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const [resolvedSrc, setResolvedSrc] = useState(src);
-  const imageVisualStyle = visualId ? data.visualStyles[visualId] : undefined;
+
+  const imageVisualStyle = visualId
+    ? data.visualStyles[visualId]
+    : undefined;
+
   const effectiveObjectFit =
     imageVisualStyle?.objectFit ?? defaultObjectFit;
+
   const knownDimensions = visualId
     ? getDefaultImageDimensions(visualId)
     : undefined;
 
   useEffect(() => {
     let active = true;
+
     resolveImage(src)
       .then((nextSource) => {
         if (active) setResolvedSrc(nextSource);
@@ -180,6 +188,7 @@ export function ZoomableImage({
       .catch(() => {
         if (active) setResolvedSrc("");
       });
+
     return () => {
       active = false;
     };
@@ -194,6 +203,7 @@ export function ZoomableImage({
     ) {
       return;
     }
+
     updateVisualStyle(visualId, {
       naturalWidth: knownDimensions.width,
       naturalHeight: knownDimensions.height,
@@ -216,12 +226,19 @@ export function ZoomableImage({
   ]);
 
   if (!context) {
-    throw new Error("ZoomableImage must be used inside ImageLightboxProvider");
+    throw new Error(
+      "ZoomableImage must be used inside ImageLightboxProvider",
+    );
   }
 
   const openViewer = () => {
     if (!resolvedSrc) return;
-    context.openImage({ src: resolvedSrc, alt, caption });
+
+    context.openImage({
+      src: resolvedSrc,
+      alt,
+      caption,
+    });
   };
 
   const content = (
@@ -229,7 +246,7 @@ export function ZoomableImage({
       {resolvedSrc ? (
         <button
           type="button"
-          className="focus-ring absolute inset-0 block overflow-hidden"
+          className="focus-ring relative block w-full overflow-hidden"
           aria-label={`查看高清图片：${alt}`}
           onClick={openViewer}
         >
@@ -238,7 +255,8 @@ export function ZoomableImage({
             ref={imageRef}
             src={resolvedSrc}
             alt={alt}
-            fill
+            width={1200}
+            height={900}
             sizes={sizes}
             priority={priority}
             unoptimized={
@@ -247,14 +265,18 @@ export function ZoomableImage({
             }
             onLoad={() => {
               if (!hydrated || !visualId || !imageRef.current) return;
+
               const image = imageRef.current;
-              const aspectRatio = image.naturalWidth / image.naturalHeight;
+              const aspectRatio =
+                image.naturalWidth / image.naturalHeight;
+
               if (
                 imageVisualStyle?.naturalWidth === image.naturalWidth &&
                 imageVisualStyle?.naturalHeight === image.naturalHeight
               ) {
                 return;
               }
+
               updateVisualStyle(visualId, {
                 naturalWidth: image.naturalWidth,
                 naturalHeight: image.naturalHeight,
@@ -263,19 +285,26 @@ export function ZoomableImage({
                   "contain"
                     ? aspectRatio
                     : imageVisualStyle?.aspectRatio,
-                objectFit: imageVisualStyle?.objectFit ?? defaultObjectFit,
+                objectFit:
+                  imageVisualStyle?.objectFit ?? defaultObjectFit,
                 lockAspect: imageVisualStyle?.lockAspect ?? true,
               });
             }}
-            className={`${imageClassName} transition-transform duration-500 ease-out group-hover/image:scale-[1.015]`}
+            className={`h-auto max-h-[220px] w-full object-contain ${imageClassName} transition-transform duration-500 ease-out group-hover/image:scale-[1.015]`}
             style={{
               objectFit: effectiveObjectFit,
               objectPosition: imageVisualStyle?.objectPosition,
             }}
           />
+
           <span className="absolute right-3 top-3 grid size-9 place-items-center bg-black/65 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover/image:opacity-100 group-focus-visible/image:opacity-100">
-            <Maximize2 size={14} strokeWidth={1.5} aria-hidden="true" />
+            <Maximize2
+              size={14}
+              strokeWidth={1.5}
+              aria-hidden="true"
+            />
           </span>
+
           {caption && !(isEditing && captionPath) && (
             <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-3 pb-3 pt-10 text-[10px] leading-4 tracking-[0.08em] text-white">
               {caption}
@@ -308,25 +337,40 @@ export function ZoomableImage({
             className="focus-ring inline-flex items-center gap-1.5 bg-[var(--paper)]/95 px-2.5 py-2 text-[9px] text-[var(--ink)] shadow-sm"
             onClick={() => fileInputRef.current?.click()}
           >
-            <Upload size={12} strokeWidth={1.5} aria-hidden="true" />
+            <Upload
+              size={12}
+              strokeWidth={1.5}
+              aria-hidden="true"
+            />
             更换
           </button>
+
           <button
             type="button"
             className="focus-ring grid size-8 place-items-center bg-[var(--paper)]/95 text-[var(--ink)] shadow-sm"
             aria-label="查看原图"
             onClick={openViewer}
           >
-            <Maximize2 size={12} strokeWidth={1.5} aria-hidden="true" />
+            <Maximize2
+              size={12}
+              strokeWidth={1.5}
+              aria-hidden="true"
+            />
           </button>
+
           <button
             type="button"
             className="focus-ring grid size-8 place-items-center bg-[var(--paper)]/95 text-[var(--ink)] shadow-sm"
             aria-label="删除图片"
             onClick={() => deleteImage(path, visualId)}
           >
-            <Trash2 size={12} strokeWidth={1.5} aria-hidden="true" />
+            <Trash2
+              size={12}
+              strokeWidth={1.5}
+              aria-hidden="true"
+            />
           </button>
+
           <input
             ref={fileInputRef}
             type="file"
@@ -335,12 +379,16 @@ export function ZoomableImage({
             onChange={async (event) => {
               const file = event.target.files?.[0];
               event.target.value = "";
+
               if (!file) return;
+
               try {
                 await replaceImage(path, file, visualId);
               } catch (error) {
                 window.alert(
-                  error instanceof Error ? error.message : "图片上传失败。",
+                  error instanceof Error
+                    ? error.message
+                    : "图片上传失败。",
                 );
               }
             }}
