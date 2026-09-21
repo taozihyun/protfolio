@@ -595,53 +595,88 @@ export function ProjectShowcase() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 lg:col-span-9">
-          {group.images.length > 0 ? (
-            group.images.map((image, imageIndex) => (
-              <ZoomableImage
-                key={imageIndex}
-                src={image.src}
-                alt={image.alt}
-                caption={image.caption}
-                className="aspect-[4/3] w-full"
-                sizes="(max-width: 768px) 33vw, 25vw"
-                path={[
-                  "otherWorkGroups",
-                  groupIndex,
-                  "images",
-                  imageIndex,
-                ]}
-                visualId={`other-work-${groupIndex}-image-${imageIndex}`}
-                defaultObjectFit="contain"
-                captionPath={[
-                  "otherWorkGroups",
-                  groupIndex,
-                  "images",
-                  imageIndex,
-                  "caption",
-                ]}
-              />
-            ))
-          ) : (
-            <div className="col-span-12 grid min-h-44 place-items-center border border-dashed border-[var(--line)]">
-              {isEditing && (
-                <button
-                  type="button"
-                  className="focus-ring border border-[var(--ink)] px-4 py-3 text-xs"
-                  onClick={() =>
-                    addImage([
-                      "otherWorkGroups",
-                      groupIndex,
-                      "images",
-                    ])
-                  }
-                >
-                  添加图片
-                </button>
-              )}
-            </div>
-          )}
-        </div>
+<div className="grid grid-cols-12 gap-3 lg:col-span-9">
+  {group.images.length > 0 ? (
+    group.images.map((image, imageIndex) => {
+      const isFiveImages = group.images.length === 5;
+      const isFourImages = group.images.length === 4;
+
+      let imageClass = "";
+
+      if (isFiveImages) {
+        if (imageIndex === 0) {
+          imageClass = "col-span-4";
+        } else if (imageIndex === 1) {
+          imageClass = "col-span-4";
+        } else if (imageIndex === 2) {
+          imageClass = "col-span-6";
+        } else {
+          imageClass = "col-span-3";
+        }
+      } else if (isFourImages) {
+        if (imageIndex === 0) {
+          imageClass = "col-span-6";
+        } else {
+          imageClass = "col-span-4";
+        }
+      } else {
+        imageClass = "col-span-6";
+      }
+
+      return (
+        <ZoomableImage
+          key={imageIndex}
+          src={image.src}
+          alt={image.alt}
+          caption={image.caption}
+          className={`w-full h-auto max-h-[220px] object-contain ${imageClass}`}
+          sizes={
+            isFiveImages
+              ? imageIndex < 2
+                ? "(max-width: 768px) 50vw, 28vw"
+                : imageIndex === 2
+                  ? "(max-width: 768px) 75vw, 40vw"
+                  : "(max-width: 768px) 40vw, 20vw"
+              : "(max-width: 768px) 50vw, 25vw"
+          }
+          path={[
+            "otherWorkGroups",
+            groupIndex,
+            "images",
+            imageIndex,
+          ]}
+          visualId={`other-work-${groupIndex}-image-${imageIndex}`}
+          defaultObjectFit="contain"
+          captionPath={[
+            "otherWorkGroups",
+            groupIndex,
+            "images",
+            imageIndex,
+            "caption",
+          ]}
+        />
+      );
+    })
+  ) : (
+    <div className="col-span-12 grid min-h-44 place-items-center border border-dashed border-[var(--line)]">
+      {isEditing && (
+        <button
+          type="button"
+          className="focus-ring border border-[var(--ink)] px-4 py-3 text-xs"
+          onClick={() =>
+            addImage([
+              "otherWorkGroups",
+              groupIndex,
+              "images",
+            ])
+          }
+        >
+          添加图片
+        </button>
+      )}
+    </div>
+  )}
+</div>
       </div>
     )}
   </VisualBlock>
