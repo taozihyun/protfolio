@@ -595,32 +595,42 @@ export function ProjectShowcase() {
           </div>
         </div>
 
-<div className="grid grid-cols-12 gap-3 lg:col-span-9">
+<div className="grid grid-cols-12 items-start gap-3 lg:col-span-9">
   {group.images.length > 0 ? (
     group.images.map((image, imageIndex) => {
-      const isFiveImages = group.images.length === 5;
-      const isFourImages = group.images.length === 4;
+      const imageCount = group.images.length;
 
-      let imageClass = "";
+      let imageClassName = "";
 
-      if (isFiveImages) {
+      if (imageCount === 4) {
+        // 图片1：第一行右侧，占一半
         if (imageIndex === 0) {
-          imageClass = "col-span-4";
-        } else if (imageIndex === 1) {
-          imageClass = "col-span-4";
-        } else if (imageIndex === 2) {
-          imageClass = "col-span-6";
+          imageClassName =
+            "col-span-12 h-[180px] md:col-span-6 md:h-[200px] lg:h-[210px]";
         } else {
-          imageClass = "col-span-3";
+          // 图片2、3、4：第二行三等分
+          imageClassName =
+            "col-span-4 h-[120px] md:h-[140px] lg:h-[150px]";
         }
-      } else if (isFourImages) {
-        if (imageIndex === 0) {
-          imageClass = "col-span-6";
-        } else {
-          imageClass = "col-span-4";
+      } else if (imageCount === 5) {
+        // 图片1、2：第一行各占 1/3
+        if (imageIndex === 0 || imageIndex === 1) {
+          imageClassName =
+            "col-span-6 h-[150px] md:col-span-4 md:h-[170px] lg:h-[180px]";
+        }
+        // 图片3：第二行占 1/2
+        else if (imageIndex === 2) {
+          imageClassName =
+            "col-span-6 h-[150px] md:h-[170px] lg:h-[180px]";
+        }
+        // 图片4、5：第二行各占 1/4
+        else {
+          imageClassName =
+            "col-span-3 h-[150px] md:h-[170px] lg:h-[180px]";
         }
       } else {
-        imageClass = "col-span-6";
+        imageClassName =
+          "col-span-6 h-[160px] md:h-[180px] lg:h-[200px]";
       }
 
       return (
@@ -629,15 +639,16 @@ export function ProjectShowcase() {
           src={image.src}
           alt={image.alt}
           caption={image.caption}
-          className={`w-full h-auto max-h-[220px] object-contain ${imageClass}`}
+          className={imageClassName}
+          imageClassName="object-contain"
           sizes={
-            isFiveImages
-              ? imageIndex < 2
-                ? "(max-width: 768px) 50vw, 28vw"
-                : imageIndex === 2
-                  ? "(max-width: 768px) 75vw, 40vw"
-                  : "(max-width: 768px) 40vw, 20vw"
-              : "(max-width: 768px) 50vw, 25vw"
+            imageCount === 5
+              ? imageIndex === 2
+                ? "(max-width: 768px) 50vw, 40vw"
+                : "(max-width: 768px) 50vw, 25vw"
+              : imageIndex === 0
+                ? "(max-width: 768px) 100vw, 45vw"
+                : "(max-width: 768px) 33vw, 25vw"
           }
           path={[
             "otherWorkGroups",
