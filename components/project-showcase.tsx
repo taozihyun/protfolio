@@ -345,6 +345,69 @@ export function ProjectShowcase() {
                         />
                       </div>
                     </div>
+                   <div className="grid grid-cols-12 gap-3 lg:col-span-9">
+  {group.images.length > 0 ? (
+    group.images.map((image, imageIndex) => (
+      <ZoomableImage
+        key={imageIndex}
+        src={image.src}
+        alt={image.alt}
+        caption={image.caption}
+        className={
+          group.images.length === 5
+            ? imageIndex === 0
+              ? "col-span-12 aspect-[16/9]"
+              : "col-span-6 aspect-[4/3] md:col-span-3"
+            : imageIndex === 0
+              ? "col-span-12 aspect-[16/9] md:col-span-6"
+              : "col-span-6 aspect-[4/3] md:col-span-3"
+        }
+        sizes={
+          group.images.length === 5
+            ? imageIndex === 0
+              ? "(max-width: 768px) 100vw, 60vw"
+              : "(max-width: 768px) 50vw, 20vw"
+            : imageIndex === 0
+              ? "(max-width: 768px) 100vw, 45vw"
+              : "(max-width: 768px) 50vw, 25vw"
+        }
+        path={[
+          "otherWorkGroups",
+          groupIndex,
+          "images",
+          imageIndex,
+        ]}
+        visualId={`other-work-${groupIndex}-image-${imageIndex}`}
+        defaultObjectFit={groupIndex === 1 ? "contain" : "cover"}
+        captionPath={[
+          "otherWorkGroups",
+          groupIndex,
+          "images",
+          imageIndex,
+          "caption",
+        ]}
+      />
+    ))
+  ) : (
+    <div className="col-span-12 grid min-h-44 place-items-center border border-dashed border-[var(--line)]">
+      {isEditing && (
+        <button
+          type="button"
+          className="focus-ring border border-[var(--ink)] px-4 py-3 text-xs"
+          onClick={() =>
+            addImage([
+              "otherWorkGroups",
+              groupIndex,
+              "images",
+            ])
+          }
+        >
+          添加图片
+        </button>
+      )}
+    </div>
+  )}
+</div>
                     <div className="grid grid-cols-12 gap-3 lg:col-span-9">
                       {group.images.length > 0 ? (
                         group.images.map((image, imageIndex) => (
