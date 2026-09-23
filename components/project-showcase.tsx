@@ -241,10 +241,6 @@ export function ProjectShowcase() {
                       mode="text"
                       className="relative flex flex-col justify-between border-t border-[var(--line)] py-8 lg:col-span-5 lg:border-l lg:border-t-0 lg:py-10 lg:pl-12"
                     >
-                      <div
-                        aria-hidden="true"
-                        className="absolute right-0 top-0 hidden h-full w-px bg-[var(--line)] lg:block"
-                      />
                       <p className="label text-[var(--muted)]">项目结果</p>
                       <ul className="my-12 space-y-4">
                         {project.resultSummary.map((item, resultIndex) => (
