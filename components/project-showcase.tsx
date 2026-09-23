@@ -312,9 +312,345 @@ export function ProjectShowcase() {
             </div>
 
             <div className="mt-12">
-              {otherWorkGroups.map((group, groupIndex) => (
-<Reveal key={groupIndex}>
-              ))}
+{otherWorkGroups.map((group, groupIndex) => (
+  <Reveal key={groupIndex}>
+    <VisualBlock
+      as="section"
+      visualId={`other-work-${groupIndex}`}
+      mode="section"
+      className="border-t border-[var(--line)] py-10 lg:py-14"
+    >
+      {group.title === "产品内容与展示" ? (
+        /* ==================== 产品内容与展示 ==================== */
+        <div className="grid gap-3 lg:grid-cols-3 lg:gap-4">
+
+          {/* 左侧 2/3：文字 + 第1张/第4张 */}
+          <div className="lg:col-span-2">
+
+            {/* 文字 */}
+            <div>
+              <p className="label text-[var(--muted)]">
+                {String(groupIndex + 1).padStart(2, "0")}
+              </p>
+
+              <h4 className="mt-4 text-2xl leading-tight">
+                <EditableText
+                  path={["otherWorkGroups", groupIndex, "title"]}
+                  placeholder="其他工作标题"
+                />
+              </h4>
+
+              <p className="mt-4 max-w-xs text-sm leading-7 text-[var(--muted)]">
+                <EditableText
+                  path={["otherWorkGroups", groupIndex, "caption"]}
+                  multiline
+                  placeholder="其他工作说明"
+                />
+              </p>
+
+              <div className="mt-5">
+                <EditorItemActions
+                  section="otherWorkGroups"
+                  index={groupIndex}
+                  count={otherWorkGroups.length}
+                />
+              </div>
+            </div>
+
+            {/* 第1张 + 第4张：在文字下面 */}
+            <div className="mt-6 grid grid-cols-2 gap-3">
+
+              {/* 第1张 */}
+              <ZoomableImage
+                src={group.images[0].src}
+                alt={group.images[0].alt}
+                caption={group.images[0].caption}
+                className="h-[150px] w-full sm:h-[170px] lg:h-[190px]"
+                sizes="(max-width: 768px) 50vw, 33vw"
+                path={[
+                  "otherWorkGroups",
+                  groupIndex,
+                  "images",
+                  0,
+                ]}
+                visualId={`other-work-${groupIndex}-image-0`}
+                defaultObjectFit="contain"
+                captionPath={[
+                  "otherWorkGroups",
+                  groupIndex,
+                  "images",
+                  0,
+                  "caption",
+                ]}
+              />
+
+              {/* 第4张 */}
+              <ZoomableImage
+                src={group.images[3].src}
+                alt={group.images[3].alt}
+                caption={group.images[3].caption}
+                className="h-[150px] w-full sm:h-[170px] lg:h-[190px]"
+                sizes="(max-width: 768px) 50vw, 33vw"
+                path={[
+                  "otherWorkGroups",
+                  groupIndex,
+                  "images",
+                  3,
+                ]}
+                visualId={`other-work-${groupIndex}-image-3`}
+                defaultObjectFit="contain"
+                captionPath={[
+                  "otherWorkGroups",
+                  groupIndex,
+                  "images",
+                  3,
+                  "caption",
+                ]}
+              />
+
+            </div>
+          </div>
+
+          {/* 右侧 1/3：第2张 + 第3张上下排列 */}
+          <div className="grid grid-rows-2 gap-3 lg:col-span-1">
+
+            {/* 第2张：产品细节 */}
+            <ZoomableImage
+              src={group.images[1].src}
+              alt={group.images[1].alt}
+              caption={group.images[1].caption}
+              className="h-[150px] w-full sm:h-[170px] lg:h-[190px]"
+              sizes="(max-width: 768px) 50vw, 33vw"
+              path={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                1,
+              ]}
+              visualId={`other-work-${groupIndex}-image-1`}
+              defaultObjectFit="contain"
+              captionPath={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                1,
+                "caption",
+              ]}
+            />
+
+            {/* 第3张：材质包装说明 */}
+            <ZoomableImage
+              src={group.images[2].src}
+              alt={group.images[2].alt}
+              caption={group.images[2].caption}
+              className="h-[150px] w-full sm:h-[170px] lg:h-[190px]"
+              sizes="(max-width: 768px) 50vw, 33vw"
+              path={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                2,
+              ]}
+              visualId={`other-work-${groupIndex}-image-2`}
+              defaultObjectFit="contain"
+              captionPath={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                2,
+                "caption",
+              ]}
+            />
+
+          </div>
+        </div>
+
+      ) : (
+        /* ==================== 展会与客户沟通 / 海外社媒内容 ==================== */
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
+
+          {/* 左侧文字 */}
+          <div className="lg:col-span-4">
+
+            <p className="label text-[var(--muted)]">
+              {String(groupIndex + 1).padStart(2, "0")}
+            </p>
+
+            <h4 className="mt-4 text-2xl leading-tight">
+              <EditableText
+                path={["otherWorkGroups", groupIndex, "title"]}
+                placeholder="其他工作标题"
+              />
+            </h4>
+
+            <p className="mt-4 max-w-xs text-sm leading-7 text-[var(--muted)]">
+              <EditableText
+                path={["otherWorkGroups", groupIndex, "caption"]}
+                multiline
+                placeholder="其他工作说明"
+              />
+            </p>
+
+            <div className="mt-5">
+              <EditorItemActions
+                section="otherWorkGroups"
+                index={groupIndex}
+                count={otherWorkGroups.length}
+              />
+            </div>
+
+          </div>
+
+          {/* ==================== 图片1 ==================== */}
+          <ZoomableImage
+            src={group.images[0].src}
+            alt={group.images[0].alt}
+            caption={group.images[0].caption}
+            className={`w-full lg:col-span-4 ${
+              group.title === "海外社媒内容"
+                ? "h-[120px] sm:h-[140px] lg:h-[150px]"
+                : "aspect-[4/3]"
+            }`}
+            sizes="(max-width: 768px) 50vw, 33vw"
+            path={[
+              "otherWorkGroups",
+              groupIndex,
+              "images",
+              0,
+            ]}
+            visualId={`other-work-${groupIndex}-image-0`}
+            defaultObjectFit="contain"
+            captionPath={[
+              "otherWorkGroups",
+              groupIndex,
+              "images",
+              0,
+              "caption",
+            ]}
+          />
+
+          {/* ==================== 图片2 ==================== */}
+          <ZoomableImage
+            src={group.images[1].src}
+            alt={group.images[1].alt}
+            caption={group.images[1].caption}
+            className={`w-full lg:col-span-4 ${
+              group.title === "海外社媒内容"
+                ? "h-[120px] sm:h-[140px] lg:h-[150px]"
+                : "aspect-[4/3]"
+            }`}
+            sizes="(max-width: 768px) 50vw, 33vw"
+            path={[
+              "otherWorkGroups",
+              groupIndex,
+              "images",
+              1,
+            ]}
+            visualId={`other-work-${groupIndex}-image-1`}
+            defaultObjectFit="contain"
+            captionPath={[
+              "otherWorkGroups",
+              groupIndex,
+              "images",
+              1,
+              "caption",
+            ]}
+          />
+
+          {/* ==================== 第二行 ==================== */}
+          <div className="mt-3 grid grid-cols-4 gap-3 lg:col-span-12">
+
+            {/* 图片3 */}
+            <ZoomableImage
+              src={group.images[2].src}
+              alt={group.images[2].alt}
+              caption={group.images[2].caption}
+              className={`col-span-2 w-full ${
+                group.title === "海外社媒内容"
+                  ? "h-[120px] sm:h-[140px] lg:h-[150px]"
+                  : "aspect-[4/3]"
+              }`}
+              sizes="(max-width: 768px) 50vw, 50vw"
+              path={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                2,
+              ]}
+              visualId={`other-work-${groupIndex}-image-2`}
+              defaultObjectFit="contain"
+              captionPath={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                2,
+                "caption",
+              ]}
+            />
+
+            {/* 图片4 */}
+            <ZoomableImage
+              src={group.images[3].src}
+              alt={group.images[3].alt}
+              caption={group.images[3].caption}
+              className={`col-span-1 w-full ${
+                group.title === "海外社媒内容"
+                  ? "h-[120px] sm:h-[140px] lg:h-[150px]"
+                  : "aspect-[4/3]"
+              }`}
+              sizes="(max-width: 768px) 25vw, 25vw"
+              path={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                3,
+              ]}
+              visualId={`other-work-${groupIndex}-image-3`}
+              defaultObjectFit="contain"
+              captionPath={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                3,
+                "caption",
+              ]}
+            />
+
+            {/* 图片5 */}
+            <ZoomableImage
+              src={group.images[4].src}
+              alt={group.images[4].alt}
+              caption={group.images[4].caption}
+              className={`col-span-1 w-full ${
+                group.title === "海外社媒内容"
+                  ? "h-[120px] sm:h-[140px] lg:h-[150px]"
+                  : "aspect-[4/3]"
+              }`}
+              sizes="(max-width: 768px) 25vw, 25vw"
+              path={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                4,
+              ]}
+              visualId={`other-work-${groupIndex}-image-4`}
+              defaultObjectFit="contain"
+              captionPath={[
+                "otherWorkGroups",
+                groupIndex,
+                "images",
+                4,
+                "caption",
+              ]}
+            />
+
+          </div>
+
+        </div>
+      )}
+    </VisualBlock>
+  </Reveal>
+))} 
             </div>
           </div>
         </div>
